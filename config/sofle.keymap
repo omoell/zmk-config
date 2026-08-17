@@ -9,33 +9,36 @@
 #define ADJ  3
 
 / {
+    /* Umlaute-Combos für deutsches macOS-Layout */
     combos {
         compatible = "zmk,combos";
         timeout-ms = <40>;
 
-        /* Colemak-DH linke Hand: A + R = ä | S + T = ß (angepasst für macOS DE) */
+        /* Colemak-DH linke Hand: Pos 13 (A) + Pos 14 (R) = ä */
         combo_ae {
-            key-positions = <13 14>; /* Pos A + R */
-            bindings = <&kp SQT>;    /* Sendet 'ä' */
+            key-positions = <13 14>;
+            bindings = <&kp SQT>;    /* Sendet 'ä' an macOS DE */
             layers = <BASE>;
         };
 
+        /* Colemak-DH linke Hand: Pos 15 (S) + Pos 16 (T) = ß */
         combo_ss {
-            key-positions = <15 16>; /* Pos S + T */
-            bindings = <&kp MINUS>;  /* Sendet 'ß' */
+            key-positions = <15 16>;
+            bindings = <&kp MINUS>;  /* Sendet 'ß' an macOS DE */
             layers = <BASE>;
         };
 
-        /* Colemak-DH rechte Hand: U + Y = ü | I + O = ö */
+        /* Colemak-DH rechte Hand: Pos 8 (U) + Pos 9 (Z-Keycode / Y-Buchstabe) = ü */
         combo_ue {
-            key-positions = <8 9>;   /* Pos U + Y */
-            bindings = <&kp LBKT>;   /* Sendet 'ü' */
+            key-positions = <8 9>;
+            bindings = <&kp LBKT>;   /* Sendet 'ü' an macOS DE */
             layers = <BASE>;
         };
 
+        /* Colemak-DH rechte Hand: Pos 21 (I) + Pos 22 (O) = ö */
         combo_oe {
-            key-positions = <21 22>; /* Pos I + O */
-            bindings = <&kp SEMI>;   /* Sendet 'ö' */
+            key-positions = <21 22>;
+            bindings = <&kp SEMI>;   /* Sendet 'ö' an macOS DE */
             layers = <BASE>;
         };
     };
@@ -43,51 +46,60 @@
     keymap {
         compatible = "zmk,keymap";
 
-        /* LAYER 0: Colemak-DH (angepasst an deutsches macOS OS-Layout) */
+        /* ==========================================================================
+           LAYER 0: BASE (Colemak-DH angepasst an deutsches macOS OS-Layout)
+           ========================================================================== */
         base_layer {
             bindings = <
-&kp GRAVE &kp N1 &kp N2 &kp N3   &kp N4   &kp N5                      &kp N6 &kp N7   &kp N8    &kp N9  &kp N0   &kp MINUS
-&kp TAB   &kp Q  &kp W  &kp F    &kp P    &kp B                       &kp J  &kp L    &kp U     &kp Z   &kp SQT  &kp BSLH
-&kp ESC   &kp A  &kp R  &kp S    &kp T    &kp G                       &kp M  &kp N    &kp E     &kp I   &kp O    &kp SEMI
-&kp LSHFT &kp Y  &kp X  &kp C    &kp D    &kp V   &kp C_MUTE &kp C_PP &kp K  &kp H    &kp COMMA &kp DOT &kp FSLH &kp RSHFT
-                 &kp LCTRL &kp LALT &kp LGUI &mo SYM &kp SPACE  &kp ENTER &mo NAV &kp BSPC &kp DEL &kp RGUI
+&kp GRAVE &kp N1 &kp N2 &kp N3   &kp N4   &kp N5                         &kp N6 &kp N7   &kp N8    &kp N9  &kp N0   &kp MINUS
+&kp TAB   &kp Q  &kp W  &kp F    &kp P    &kp B                          &kp J  &kp L    &kp U     &kp Z   &kp SQT  &kp BSLH
+&kp ESC   &kp A  &kp R  &kp S    &kp T    &kp G                          &kp M  &kp N    &kp E     &kp I   &kp O    &kp SEMI
+&kp LSHFT &kp Y  &kp X  &kp C    &kp D    &kp V   &kp C_MUTE   &kp C_PP  &kp K  &kp H    &kp COMMA &kp DOT &kp FSLH &kp RSHFT
+                 &kp LCTRL &kp LALT &kp LGUI &mo SYM &kp SPACE    &kp ENTER &mo NAV &kp BSPC &kp DEL &kp RGUI
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        /* LAYER 1: SQL & Programming Symbols */
+        /* ==========================================================================
+           LAYER 1: SYM (SQL, Jinja & Programmierung auf macOS DE)
+           ========================================================================== */
         symbol_layer {
             bindings = <
-&trans    &kp F1        &kp F2         &kp F3         &kp F4         &kp F5                         &kp F6        &kp F7        &kp F8        &kp F9        &kp F10       &kp F11
-&trans    &kp LS(N1)    &kp GRAVE      &kp LS(GRAVE)  &kp LA(N)      &kp LS(N5)                     &kp LA(N5)    &kp LA(N6)    &kp LS(N4)    &kp LS(MINUS) &kp BSLH      &kp F12
-&trans    &kp LS(FSLH)  &kp LS(N0)     &kp RBKT       &kp FSLH       &kp LS(RBKT)                   &kp LS(N8)    &kp LS(N9)    &kp LS(BSLH)  &kp LS(N2)    &kp LS(EQUAL) &trans
-&trans    &kp LS(N7)    &kp LA(LS(N7)) &kp LS(N6)     &kp LA(N7)     &kp GRAVE    &trans  &trans    &kp LA(N8)    &kp LA(N9)    &kp LS(COMMA) &kp LS(DOT)   &kp LS(COMMA) &trans
-                        &trans         &trans         &trans         &trans       &trans  &mo ADJ   &trans        &trans        &trans        &trans
+&trans    &kp F1        &kp F2         &kp F3        &kp F4        &kp F5                            &kp F6        &kp F7        &kp F8        &kp F9        &kp F10       &kp F11
+&trans    &kp LS(N1)    &kp GRAVE      &kp LS(GRAVE) &kp LA(N)     &kp LS(N5)                        &kp LA(N5)    &kp LA(N6)    &kp LS(N4)    &kp LS(MINUS) &kp BSLH      &kp F12
+&trans    &kp LS(FSLH)  &kp LS(N0)     &kp RBKT      &kp FSLH      &kp LS(RBKT)                      &kp LS(N8)    &kp LS(N9)    &kp LS(BSLH)  &kp LS(N2)    &kp LS(EQUAL) &trans
+&trans    &kp LS(N7)    &kp LA(LS(N7)) &kp LS(N6)    &kp LA(N7)    &kp EQUAL     &trans    &trans    &kp LA(N8)    &kp LA(N9)    &kp COMMA     &kp DOT       &kp LS(COMMA) &trans
+                        &trans         &trans        &trans        &trans        &trans    &mo ADJ   &trans        &trans        &trans        &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        /* LAYER 2: Navigation & Editing */
+        /* ==========================================================================
+           LAYER 2: NAV (Navigation & Text-Editing)
+           ========================================================================== */
         nav_layer {
             bindings = <
-&trans    &trans    &trans    &trans    &trans    &trans                      &trans    &trans    &trans    &trans     &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans                      &kp HOME  &kp PG_DN &kp PG_UP &kp END    &trans    &trans
-&trans    &kp LSHFT &kp LCTRL &kp LALT  &kp LGUI  &trans                      &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT  &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans    &trans  &trans    &trans    &trans    &trans    &trans     &trans    &trans
-                    &trans    &trans    &trans    &mo ADJ   &trans  &trans    &trans    &trans    &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans                         &trans    &trans    &trans    &trans     &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans                         &kp HOME  &kp PG_DN &kp PG_UP &kp END    &trans    &trans
+&trans    &kp LSHFT &kp LCTRL &kp LALT  &kp LGUI  &trans                         &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT  &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans    &trans     &trans    &trans    &trans    &trans    &trans     &trans    &trans
+                    &trans    &trans    &trans    &mo ADJ   &trans     &trans    &trans    &trans    &trans    &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        /* LAYER 3: Adjust (Bluetooth / System) */
+        /* ==========================================================================
+           LAYER 3: ADJ (Hardware, Bluetooth & Reset)
+           ========================================================================== */
         adjust_layer {
             bindings = <
-&bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4             &trans &trans &trans &trans &trans &trans
-&trans     &trans       &trans       &trans       &trans       &trans                   &trans &trans &trans &trans &trans &trans
-&trans     &trans       &trans       &trans       &trans       &trans                   &trans &trans &trans &trans &trans &trans
-&trans     &trans       &trans       &trans       &trans       &trans &trans   &trans   &trans &trans &trans &trans &trans &trans
-                        &trans       &trans       &trans       &trans &trans   &trans   &trans &trans &trans &trans
+&bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                &trans &trans &trans &trans &trans &trans
+&trans     &trans       &trans       &trans       &trans       &trans                      &trans &trans &trans &trans &trans &trans
+&trans     &trans       &trans       &trans       &trans       &trans                      &trans &trans &trans &trans &trans &trans
+&trans     &trans       &trans       &trans       &trans       &trans    &trans   &trans   &trans &trans &trans &trans &trans &trans
+                        &trans       &trans       &trans       &trans    &trans   &trans   &trans &trans &trans &trans
             >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
     };
 };
