@@ -13,31 +13,31 @@
         compatible = "zmk,combos";
         timeout-ms = <40>;
 
-        /* Colemak-DH linke Hand: Pos 13 (A) + Pos 14 (R) = ä */
+        /* Colemak-DH linke Hand: Pos 25 (A) + Pos 26 (R) = ä */
         combo_ae {
-            key-positions = <13 14>;
-            bindings = <&kp SQT>;
+            key-positions = <25 26>;
+            bindings = <&kp SQT>;    /* Sendet 'ä' an macOS DE */
             layers = <BASE>;
         };
 
-        /* Colemak-DH linke Hand: Pos 15 (S) + Pos 16 (T) = ß */
+        /* Colemak-DH linke Hand: Pos 27 (S) + Pos 28 (T) = ß */
         combo_ss {
-            key-positions = <15 16>;
-            bindings = <&kp MINUS>;
+            key-positions = <27 28>;
+            bindings = <&kp MINUS>;  /* Sendet 'ß' an macOS DE */
             layers = <BASE>;
         };
 
-        /* Colemak-DH rechte Hand: Pos 8 (U) + Pos 9 (Z-Keycode / Y-Buchstabe) = ü */
+        /* Colemak-DH rechte Hand: Pos 20 (U) + Pos 21 (Z/Y) = ü */
         combo_ue {
-            key-positions = <8 9>;
-            bindings = <&kp LBKT>;
+            key-positions = <20 21>;
+            bindings = <&kp LBKT>;   /* Sendet 'ü' an macOS DE */
             layers = <BASE>;
         };
 
-        /* Colemak-DH rechte Hand: Pos 21 (I) + Pos 22 (O) = ö */
+        /* Colemak-DH rechte Hand: Pos 33 (I) + Pos 34 (O) = ö */
         combo_oe {
-            key-positions = <21 22>;
-            bindings = <&kp SEMI>;
+            key-positions = <33 34>;
+            bindings = <&kp SEMI>;   /* Sendet 'ö' an macOS DE */
             layers = <BASE>;
         };
     };
@@ -45,7 +45,9 @@
     keymap {
         compatible = "zmk,keymap";
 
-        /* LAYER 0: BASE (Colemak-DH angepasst an macOS German Input) */
+        /* ==========================================================================
+           LAYER 0: BASE (Colemak-DH für macOS German Input)
+           ========================================================================== */
         base_layer {
             bindings = <
 &kp GRAVE &kp N1 &kp N2 &kp N3   &kp N4   &kp N5                         &kp N6 &kp N7   &kp N8    &kp N9  &kp N0   &kp MINUS
@@ -57,7 +59,9 @@
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        /* LAYER 1: SYM (SQL, Jinja & Programming auf macOS DE) */
+        /* ==========================================================================
+           LAYER 1: SYM (SQL, Jinja & Dev-Symbole auf macOS DE)
+           ========================================================================== */
         symbol_layer {
             bindings = <
 &trans    &kp F1        &kp F2         &kp F3        &kp F4        &kp F5                            &kp F6        &kp F7        &kp F8        &kp F9        &kp F10       &kp F11
@@ -69,19 +73,23 @@
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        /* LAYER 2: NAV */
+        /* ==========================================================================
+           LAYER 2: NAV (Navigation & Editing - Pfeiltasten auf N, E, I, O)
+           ========================================================================== */
         nav_layer {
             bindings = <
 &trans    &trans    &trans    &trans    &trans    &trans                         &trans    &trans    &trans    &trans     &trans    &trans
-&trans    &trans    &trans    &trans    &trans    &trans                         &kp HOME  &kp PG_DN &kp PG_UP &kp END    &trans    &trans
-&trans    &kp LSHFT &kp LCTRL &kp LALT  &kp LGUI  &trans                         &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT  &trans    &trans
+&trans    &trans    &trans    &trans    &trans    &trans                         &trans    &kp HOME  &kp PG_DN &kp PG_UP  &kp END   &trans
+&trans    &kp LGUI  &kp LALT  &kp LCTRL &kp LSHFT &trans                         &trans    &kp LEFT  &kp DOWN  &kp UP     &kp RIGHT &trans
 &trans    &trans    &trans    &trans    &trans    &trans    &trans     &trans    &trans    &trans    &trans    &trans     &trans    &trans
                     &trans    &trans    &trans    &mo ADJ   &trans     &trans    &trans    &trans    &trans    &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        /* LAYER 3: ADJ (mit Studio Unlock) */
+        /* ==========================================================================
+           LAYER 3: ADJ (Bluetooth-Profile & Studio Unlock)
+           ========================================================================== */
         adjust_layer {
             bindings = <
 &bt BT_CLR &bt BT_SEL 0    &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                &trans &trans &trans &trans &trans &trans
